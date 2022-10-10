@@ -1,0 +1,54 @@
+npm i jest -D
+
+npx jest --init
+The following questions will help Jest to create a suitable configuration for your project
+
+√ Would you like to use Jest when running "test" script in "package.json"? ... yes
+√ Would you like to use Typescript for the configuration file? ... yes
+testing » jsdom (browser-like)
+√ Do you want Jest to add coverage reports? ... no  
+√ Which provider should be used to instrument code for coverage? » v8
+√ Automatically clear mock calls, instances, contexts and results before every test? ... yes
+
+npm i ts-node -D
+npm i @types/jest -D
+
+create file: App.spec.tsx
+  
+insert in jest.config.ts:  
+  //transform: undefined
+    transform: {
+  "^.+\\.(t|j)sx?$": [
+    "@swc/jest",
+    {
+      jsc:{
+        parser:{
+          syntax:'typescript',
+          tsx: true,
+          decorators: true,
+        },
+        keepClassNames: true,
+        transform: {
+          legacyDecorator: true,
+          decoratorMetadata:true,
+          react:{
+            runtime: 'automatic'
+          },
+        },
+        },
+        module:{
+          type:'es6',
+          noInterop: false,
+        },
+      },
+    ],
+  },
+  
+  npm i @testing-library/react @testing-library/jest-dom @testing-library/user-event -D 
+
+update in package.json:
+  "test": "jest --watchAll"
+
+
+npm install -D jest-environment-jsdom
+npm i -D jest @swc/core @swc/jest
